@@ -1,7 +1,6 @@
 SET NAMES utf8mb4; $$$
 SET FOREIGN_KEY_CHECKS = 0;$$$
-DROP TABLE IF EXISTS `tb_user`;$$$
-CREATE TABLE `tb_user` (
+CREATE TABLE IF NOT EXISTS `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '昵称',
   `username` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '用户名',
@@ -16,8 +15,7 @@ CREATE TABLE `tb_user` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户表' ROW_FORMAT = Dynamic;$$$
 
-DROP TABLE IF EXISTS `tb_category`;$$$
-CREATE TABLE `tb_category` (
+CREATE TABLE IF NOT EXISTS `tb_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '分类名称',
   `slug_name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '分类别名（全英文）',
@@ -29,8 +27,7 @@ CREATE TABLE `tb_category` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '分类表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_tag`;$$$
-CREATE TABLE `tb_tag` (
+CREATE TABLE IF NOT EXISTS `tb_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '标签名称',
   `slug_name` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '标签别名',
@@ -40,8 +37,7 @@ CREATE TABLE `tb_tag` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '标签表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_post`;$$$
-CREATE TABLE `tb_post` (
+CREATE TABLE IF NOT EXISTS `tb_post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL DEFAULT '0' COMMENT '类型',
   `create_from` int(11) DEFAULT '0' COMMENT '创建渠道',
@@ -65,8 +61,7 @@ CREATE TABLE `tb_post` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_post_category`;$$$
-CREATE TABLE `tb_post_category` (
+CREATE TABLE IF NOT EXISTS `tb_post_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) DEFAULT NULL COMMENT '文章id',
   `category_id` int(11) DEFAULT NULL COMMENT '分类id',
@@ -76,8 +71,7 @@ CREATE TABLE `tb_post_category` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章分类表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_post_tag`;$$$
-CREATE TABLE `tb_post_tag` (
+CREATE TABLE IF NOT EXISTS `tb_post_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL COMMENT '文章id',
   `tag_id` int(11) NOT NULL COMMENT '标签id',
@@ -87,8 +81,7 @@ CREATE TABLE `tb_post_tag` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章标签表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_comment`;$$$
-CREATE TABLE `tb_comment` (
+CREATE TABLE IF NOT EXISTS `tb_comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL DEFAULT '0' COMMENT '类型（0：公开，1：私密）',
   `author` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '评论者',
@@ -110,8 +103,7 @@ CREATE TABLE `tb_comment` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章评论表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_photo`;$$$
-CREATE TABLE `tb_photo` (
+CREATE TABLE IF NOT EXISTS `tb_photo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '图片名称',
   `description` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '图片描述',
@@ -126,8 +118,7 @@ CREATE TABLE `tb_photo` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '图库表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_attachment`;$$$
-CREATE TABLE `tb_attachment` (
+CREATE TABLE IF NOT EXISTS `tb_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_key` varchar(2047) COLLATE utf8mb4_bin DEFAULT '' COMMENT '文件key；同path',
   `width` int(11) DEFAULT '0' COMMENT '宽度（仅图片）',
@@ -145,8 +136,7 @@ CREATE TABLE `tb_attachment` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '附件表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_link`;$$$
-CREATE TABLE `tb_link` (
+CREATE TABLE IF NOT EXISTS `tb_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '链接名称',
   `url` varchar(1023) COLLATE utf8mb4_bin NOT NULL COMMENT '链接url',
@@ -160,8 +150,7 @@ CREATE TABLE `tb_link` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '链接表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_journal`;$$$
-CREATE TABLE `tb_journal` (
+CREATE TABLE IF NOT EXISTS `tb_journal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text COLLATE utf8mb4_bin NOT NULL  COMMENT '说说内容',
   `source_content` varchar(1023) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '说说源内容',
@@ -173,8 +162,7 @@ CREATE TABLE `tb_journal` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '说说表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_log`;$$$
-CREATE TABLE `tb_log` (
+CREATE TABLE IF NOT EXISTS `tb_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` varchar(1023) COLLATE utf8mb4_bin NOT NULL COMMENT '操作内容',
   `ip_address` varchar(127) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ip地址',
@@ -186,8 +174,7 @@ CREATE TABLE `tb_log` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '操作记录表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_option`;$$$
-CREATE TABLE `tb_option` (
+CREATE TABLE IF NOT EXISTS `tb_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `option_key` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT '参数key',
   `option_value` varchar(1023) COLLATE utf8mb4_bin NOT NULL COMMENT '参数value',
@@ -198,8 +185,7 @@ CREATE TABLE `tb_option` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '博客参数表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_theme_setting`;$$$
-CREATE TABLE `tb_theme_setting` (
+CREATE TABLE IF NOT EXISTS `tb_theme_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `setting_key` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT 'key',
   `theme_id` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '主题',
@@ -210,8 +196,7 @@ CREATE TABLE `tb_theme_setting` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '主题设置表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_menu`;$$$
-CREATE TABLE `tb_menu` (
+CREATE TABLE IF NOT EXISTS `tb_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `icon` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT '菜单图标',
   `name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '菜单名称',
@@ -226,8 +211,7 @@ CREATE TABLE `tb_menu` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '主题设置表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_flyway_schema_history`;$$$
-CREATE TABLE `tb_flyway_schema_history` (
+CREATE TABLE IF NOT EXISTS `tb_flyway_schema_history` (
   `installed_rank` int(11) NOT NULL COMMENT '主键、安装等级',
   `version` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本',
   `description` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT '描述',
@@ -242,8 +226,7 @@ CREATE TABLE `tb_flyway_schema_history` (
   KEY `flyway_schema_history_s_idx` (`success`)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '历史版本表' ROW_FORMAT=DYNAMIC;$$$
 
-DROP TABLE IF EXISTS `tb_meta`;$$$
-CREATE TABLE `tb_meta` (
+CREATE TABLE IF NOT EXISTS `tb_meta` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL DEFAULT '0' COMMENT '类型',
   `post_id` int(11) NOT NULL COMMENT '文章id',

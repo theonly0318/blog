@@ -2,6 +2,7 @@ package top.guoshihua.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @ClassName BlogApplication
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @See 版权声明
  **/
 @SpringBootApplication
+@EnableCaching
 public class BlogApplication {
 
     public static void main(String[] args) {
