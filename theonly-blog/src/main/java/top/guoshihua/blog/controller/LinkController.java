@@ -42,4 +42,22 @@ public class LinkController implements LinkApi {
 			@RequestParam(name = "desc", required = false) Boolean desc) {
 		return linkService.findByPage(page, rows, sortBy, desc);
 	}
+
+	@Override
+	@PostMapping("/save")
+	public void save(Link link) {
+		linkService.save(link);
+	}
+
+	@Override
+	@PutMapping("/update")
+	public void update(Link link) {
+		linkService.update(link);
+	}
+
+	@Override
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") Integer id) {
+		linkService.deleteById(id);
+	}
 }

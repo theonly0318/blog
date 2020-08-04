@@ -31,9 +31,9 @@ public class ShiroConfig {
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        shiroFilterFactoryBean.setLoginUrl("/admin/login"); // 登录url
-        shiroFilterFactoryBean.setSuccessUrl("/admin/index"); // 登录成功url
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403"); // 没有授权url
+        // shiroFilterFactoryBean.setLoginUrl("/admin/login"); // 登录url
+        // shiroFilterFactoryBean.setSuccessUrl("/admin/index"); // 登录成功url
+        // shiroFilterFactoryBean.setUnauthorizedUrl("/403"); // 没有授权url
 
         //添加Shiro内置过滤器
         Map<String,String> filterMap = new LinkedHashMap<String,String>();
@@ -44,10 +44,13 @@ public class ShiroConfig {
         filterMap.put("/img/**", "anon");
 
         // 配置退出过滤器，其中具体的退出代码Shiro已经替我们实现了
-        filterMap.put("/admin/logout", "logout");
-        filterMap.put("/**", "anon");
+        //filterMap.put("/admin/logout", "logout");
+
         // 除上以外所有url都必须认证通过(管理员身份)才可以访问，未通过认证自动访问LoginUrl
-        filterMap.put("/admin/**", "admin");
+        //filterMap.put("/admin/**", "admin");
+
+        filterMap.put("/**", "anon");
+
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 

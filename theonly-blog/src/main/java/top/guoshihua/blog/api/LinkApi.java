@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import top.guoshihua.blog.entity.Link;
+import top.guoshihua.blog.entity.User;
 
 import java.util.List;
 
@@ -52,4 +53,27 @@ public interface LinkApi {
                     dataType = "Boolean", dataTypeClass = Boolean.class)
     })
     Page<Link> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
+
+    /**
+     * 添加友情链接
+     * @param link
+     */
+    @ApiOperation(value = "新增友情链接", notes = "新增友情链接")
+    void save(Link link);
+
+    /**
+     * 更新友情链接
+     * @param link
+     */
+    @ApiOperation(value = "修改链接", notes = "修改友情链接")
+    void update(Link link);
+
+    /**
+     * 删除
+     * @param id
+     */
+    @ApiOperation(value = "删除链接", notes = "根据id删除友情链接")
+    @ApiImplicitParam(name = "id", value = "链接id", required = true, dataType = "Integer", dataTypeClass =
+            Integer.class, paramType = "path")
+    void delete(Integer id);
 }

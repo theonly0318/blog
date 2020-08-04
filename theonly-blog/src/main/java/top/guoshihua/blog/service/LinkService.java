@@ -36,4 +36,20 @@ public interface LinkService {
      * @return
      */
     Page<Link> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
+
+    /**
+     * 新增
+     * @param link
+     * @return
+     */
+    Link save(Link link);
+
+    /**
+     * 修改
+     * @param link
+     * @return
+     */
+    Link update(Link link);
+
+    void deleteById(Integer id);
 }

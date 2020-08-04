@@ -2,6 +2,7 @@ package top.guoshihua.blog.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
+import org.springframework.transaction.annotation.Transactional;
 import top.guoshihua.blog.entity.Link;
 import top.guoshihua.blog.service.LinkService;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * @author guoshihua
  */
 @Service("linkService")
+@Transactional
 public class LinkServiceImpl implements LinkService {
 
 	@Autowired
@@ -48,5 +50,20 @@ public class LinkServiceImpl implements LinkService {
 		}
 		Page<Link> linkPage = linkRepository.findAll(pageable);
 		return linkPage;
+	}
+
+	@Override
+	public Link save(Link link) {
+		return linkRepository.save(link);
+	}
+
+	@Override
+	public Link update(Link link) {
+		return linkRepository.save(link);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		linkRepository.deleteById(id);
 	}
 }
