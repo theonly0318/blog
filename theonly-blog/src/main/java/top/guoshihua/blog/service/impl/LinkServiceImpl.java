@@ -3,11 +3,13 @@ package top.guoshihua.blog.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
+import top.guoshihua.blog.dao.LinkMapper;
 import top.guoshihua.blog.entity.Link;
 import top.guoshihua.blog.service.LinkService;
 import org.springframework.stereotype.Service;
 import top.guoshihua.blog.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import top.guoshihua.blog.util.UuidUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,8 @@ public class LinkServiceImpl implements LinkService {
 
 	@Autowired
 	private LinkRepository linkRepository;
+	@Autowired
+	private LinkMapper linkMapper;
 
 	@Override
 	public List<Link> findAll() {
@@ -28,7 +32,7 @@ public class LinkServiceImpl implements LinkService {
 	}
 
 	@Override
-	public Link findById(Integer id) {
+	public Link findById(String id) {
 		Optional<Link> optionalLink = linkRepository.findById(id);
 		return optionalLink.get();
 	}
@@ -54,7 +58,14 @@ public class LinkServiceImpl implements LinkService {
 
 	@Override
 	public Link save(Link link) {
-		return linkRepository.save(link);
+		Link c = linkRepository.findFirstByName(link.getName());
+		if (c != null) {
+			return null;
+		}
+		String id = UuidUtil.getUUIDStr();
+		link.setId(id);
+		linkMapper.insertSelective(link);
+		return linkRepository.findById(id).get();
 	}
 
 	@Override
@@ -63,7 +74,7 @@ public class LinkServiceImpl implements LinkService {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void deleteById(String id) {
 		linkRepository.deleteById(id);
 	}
 }

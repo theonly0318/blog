@@ -12,15 +12,15 @@ public interface MenuService  {
 
     List<Menu> findAll();
 
-    Menu findById(Integer id);
+    Menu findById(String id);
 
     Page<Menu> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
 
     Menu save(Menu menu);
 
-    Menu update(Integer id, Menu menu);
+    Menu update(String id, Menu menu);
 
-    void recovery(Integer id);
+    void recovery(String id);
 
-    void delete(Integer id);
+    void delete(String id);
 }

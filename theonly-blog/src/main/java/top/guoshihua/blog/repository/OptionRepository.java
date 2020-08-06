@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface OptionRepository extends JpaRepository<Option, Integer>{}
+public interface OptionRepository extends JpaRepository<Option, String>{}

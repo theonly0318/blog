@@ -28,9 +28,9 @@ public interface CategoryApi {
      * @return
      */
     @ApiOperation(value = "分类信息", notes = "根据id获取分类信息")
-    @ApiImplicitParam(name = "id", value = "id", required = true, defaultValue = "1",
-            dataType = "Integer", paramType = "path")
-    Category findById(Integer id);
+    @ApiImplicitParam(name = "id", value = "分类id", required = true,
+            dataType = "String", paramType = "path")
+    Category findById(String id);
 
     /**
      * 分页获取所有分类
@@ -62,19 +62,20 @@ public interface CategoryApi {
 
     /**
      * 更新分类
+     * @param id
      * @param category
      */
     @ApiOperation(value = "修改分类", notes = "修改分类")
-    @ApiImplicitParam(name = "id", value = "分类id", required = true, defaultValue = "1",
-            dataType = "Integer", dataTypeClass = Integer.class, paramType = "path")
-    void update(Integer id, Category category);
+    @ApiImplicitParam(name = "id", value = "分类id", required = true,
+            dataType = "String", dataTypeClass = String.class, paramType = "path")
+    void update(String id, Category category);
 
     /**
      * 删除
      * @param id
      */
     @ApiOperation(value = "删除分类", notes = "根据id删除分类")
-    @ApiImplicitParam(name = "id", value = "分类id", required = true, dataType = "Integer", dataTypeClass =
-            Integer.class, paramType = "path")
-    void delete(Integer id);
+    @ApiImplicitParam(name = "id", value = "分类id", required = true, dataType = "String", dataTypeClass =
+            String.class, paramType = "path")
+    void delete(String id);
 }

@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface MetaRepository extends JpaRepository<Meta, Long>{}
+public interface MetaRepository extends JpaRepository<Meta, String>{}

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,12 +16,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_theme_setting")
 @JsonIgnoreProperties(ignoreUnknown = true)
+//@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class ThemeSetting implements Serializable {
 
 	private static final long serialVersionUID =  4731695783626772680L;
 	@Id
-	@GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(generator = "JDBC")
+	@Column(length = 32)
+	private String id;
 
 	/**key*/
 	@Column(name = "setting_key")

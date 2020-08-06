@@ -28,8 +28,8 @@ public interface MenuApi {
      * @return
      */
     @ApiOperation(value = "获取菜单信息", notes = "根据id获取菜单信息")
-    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "Integer", paramType = "path")
-    Menu findById(Integer id);
+    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "String", paramType = "path")
+    Menu findById(String id);
 
     /**
      * 分页获取所有菜单信息
@@ -63,24 +63,24 @@ public interface MenuApi {
      * @return
      */
     @ApiOperation(value = "修改菜单", notes = "修改菜单")
-    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "Integer", paramType = "path")
-    Menu update(Integer id, Menu menu);
+    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "String", paramType = "path")
+    Menu update(String id, Menu menu);
 
     /**
      * 回收菜单
      * @param id 菜单id
      */
     @ApiOperation(value = "回收菜单", notes = "回收菜单")
-    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "Integer", paramType = "path")
-    void recovery(Integer id);
+    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "String", paramType = "path")
+    void recovery(String id);
 
     /**
      * 删除菜单
      * @param id 菜单id
      */
     @ApiOperation(value = "删除菜单", notes = "删除菜单")
-    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "Integer", paramType = "path")
-    void delete(Integer id);
+    @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "String", paramType = "path")
+    void delete(String id);
 
 
 }

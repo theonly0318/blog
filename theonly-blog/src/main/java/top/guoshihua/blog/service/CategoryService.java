@@ -13,13 +13,13 @@ public interface CategoryService {
 
     List<Category> findAll();
 
-    Category findById(Integer id);
+    Category findById(String id);
 
     Page<Category> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
 
     Category save(Category category);
 
-    Category update(Integer id, Category category);
+    Category update(String id, Category category);
 
-    void delete(Integer id);
+    void delete(String id);
 }

@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface ThemeSettingRepository extends JpaRepository<ThemeSetting, Integer>{}
+public interface ThemeSettingRepository extends JpaRepository<ThemeSetting, String>{}

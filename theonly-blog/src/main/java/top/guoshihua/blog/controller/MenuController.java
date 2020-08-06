@@ -27,7 +27,7 @@ public class MenuController implements MenuApi {
 
 	@Override
 	@GetMapping("/{id}")
-	public Menu findById(@PathVariable("id") Integer id) {
+	public Menu findById(@PathVariable("id") String id) {
 		return menuService.findById(id);
 	}
 
@@ -45,19 +45,19 @@ public class MenuController implements MenuApi {
 
 	@Override
 	@PutMapping("/{id}")
-	public Menu update(@PathVariable("id") Integer id, Menu menu) {
+	public Menu update(@PathVariable("id") String id, Menu menu) {
 		return menuService.update(id, menu);
 	}
 
 	@Override
 	@GetMapping("/recovery/{id}")
-	public void recovery(@PathVariable("id") Integer id) {
+	public void recovery(@PathVariable("id") String id) {
 		menuService.recovery(id);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") String id) {
 		menuService.delete(id);
 	}
 }

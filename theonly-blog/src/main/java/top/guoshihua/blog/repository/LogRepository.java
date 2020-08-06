@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface LogRepository extends JpaRepository<Log, Long>{}
+public interface LogRepository extends JpaRepository<Log, String>{}

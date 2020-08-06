@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,12 +16,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_comment")
 @JsonIgnoreProperties(ignoreUnknown = true)
+// @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID =  737730970906981921L;
 	@Id
-	@GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(generator = "JDBC")
+	@Column(length = 32)
+	private String id;
 
 	/**类型（0：公开，1：私密）*/
 	private Integer type;
@@ -51,12 +54,12 @@ public class Comment implements Serializable {
 	private Boolean isAdmin;
 
 	/**父级评论id（0：该评论是一级评论）*/
-	@Column(name = "parent_id")
-	private Long parentId;
+	@Column(name = "parent_id", length = 32)
+	private String parentId;
 
 	/**文章id*/
-	@Column(name = "post_id")
-	private Integer postId;
+	@Column(name = "post_id", length = 32)
+	private String postId;
 
 	/**评论状态*/
 	private Integer status;

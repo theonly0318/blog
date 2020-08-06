@@ -25,7 +25,7 @@ public interface LinkService {
      * @return
      */
     @Cacheable(key = "#p0")
-    Link findById(Integer id);
+    Link findById(String id);
 
     /**
      * 分页获取所有友情链接
@@ -51,5 +51,5 @@ public interface LinkService {
      */
     Link update(Link link);
 
-    void deleteById(Integer id);
+    void deleteById(String id);
 }

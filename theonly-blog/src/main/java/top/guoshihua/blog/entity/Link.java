@@ -10,6 +10,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -23,13 +24,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_link")
 @JsonIgnoreProperties(ignoreUnknown = true)
+// @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @ApiModel(value = "link对象", description = "友情链接实体类")
 public class Link implements Serializable {
 
 	private static final long serialVersionUID =  5811438209153191790L;
 	@Id
-	@GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(generator = "JDBC")
+	@Column(length = 32)
+	private String id;
 
 	/**链接名称*/
 	@ApiModelProperty(value = "链接名称", name = "name", required = true, example = "Spring")
@@ -40,7 +43,7 @@ public class Link implements Serializable {
 	private String url;
 
 	/**链接logo*/
-	@ApiModelProperty(value = "链接logo，默认为空", name = "logo", example = "")
+	@ApiModelProperty(value = "链接logo，默认为空", name = "logo")
 	private String logo;
 
 	/**链接描述*/

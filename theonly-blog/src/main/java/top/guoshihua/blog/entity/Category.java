@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -17,14 +18,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_category")
 @JsonIgnoreProperties(value={"createTime", "updateTime"})
+// @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+// 通用mapper值只允许以下几种形式:
+// 	1.useGeneratedKeys的@GeneratedValue(generator=\"JDBC\")
+//	2.类似mysql数据库的@GeneratedValue(strategy=GenerationType.IDENTITY[,generator="Mysql"])
 @ApiModel(value = "category对象", description = "category实体对象")
 public class Category implements Serializable {
 
 	private static final long serialVersionUID =  2474835121656903754L;
 	@Id
-	@GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "JDBC")
+	@Column(length = 32)
 	// @ApiModelProperty(hidden = true)
-	private Integer id;
+	private String id;
 
 	/**分类名称*/
 	@ApiModelProperty(value = "分类名称", name = "name", required = true, example = "Java")
@@ -36,9 +42,9 @@ public class Category implements Serializable {
 	private String slugName;
 
 	/**父级分类id；0：父级*/
-	@Column(name = "parent_id")
-	@ApiModelProperty(value = "父级分类id；默认为0：父级", name = "parentId", required = true, example = "0")
-	private Integer parentId;
+	@Column(name = "parent_id", length = 32)
+	@ApiModelProperty(value = "父级分类id；默认为null：父级", name = "parentId")
+	private String parentId;
 
 	/**描述*/
 	@ApiModelProperty(value = "父级描述", name = "description", example = "Java")

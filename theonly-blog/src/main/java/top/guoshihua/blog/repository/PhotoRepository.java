@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface PhotoRepository extends JpaRepository<Photo, Integer>{}
+public interface PhotoRepository extends JpaRepository<Photo, String>{}

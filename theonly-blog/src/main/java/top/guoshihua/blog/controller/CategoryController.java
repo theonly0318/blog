@@ -28,7 +28,7 @@ public class CategoryController implements CategoryApi {
 
 	@Override
 	@GetMapping("/{id}")
-	public Category findById(@PathVariable("id") Integer id) {
+	public Category findById(@PathVariable("id") String id) {
 		return categoryService.findById(id);
 	}
 
@@ -50,13 +50,13 @@ public class CategoryController implements CategoryApi {
 
 	@Override
 	@PutMapping("/{id}")
-	public void update(@PathVariable("id") Integer id, Category category) {
+	public void update(@PathVariable("id") String id, Category category) {
 		categoryService.update(id, category);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") String id) {
 		categoryService.delete(id);
 	}
 }

@@ -29,7 +29,7 @@ public class LinkController implements LinkApi {
 
 	@Override
 	@GetMapping("/{id}")
-	public Link findById(@PathVariable("id") Integer id) {
+	public Link findById(@PathVariable("id") String id) {
 		return linkService.findById(id);
 	}
 
@@ -57,7 +57,7 @@ public class LinkController implements LinkApi {
 
 	@Override
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") String id) {
 		linkService.deleteById(id);
 	}
 }

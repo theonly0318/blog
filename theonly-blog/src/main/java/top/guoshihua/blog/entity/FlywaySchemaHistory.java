@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -14,14 +15,13 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tb_flyway_schema_history")
-@JsonIgnoreProperties(ignoreUnknown = true, value={})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FlywaySchemaHistory implements Serializable {
 
 	private static final long serialVersionUID =  2654437091387185692L;
 	@Id
-	@GeneratedValue( generator = "JDBC", strategy = GenerationType.IDENTITY)
 	/**主键、安装等级*/
-	@Column(name = "installed_rank")
+	@Column(name = "installed_rank", length = 32)
 	private Integer installedRank;
 
 	/**版本*/

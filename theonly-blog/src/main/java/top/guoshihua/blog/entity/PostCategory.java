@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,20 +16,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_post_category")
 @JsonIgnoreProperties(ignoreUnknown = true)
+//@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class PostCategory implements Serializable {
 
 	private static final long serialVersionUID =  101704122838180764L;
 	@Id
-	@GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(generator = "JDBC")
+	@Column(length = 32)
+	private String id;
 
 	/**文章id*/
-	@Column(name = "post_id")
-	private Integer postId;
+	@Column(name = "post_id", length = 32)
+	private String postId;
 
 	/**分类id*/
-	@Column(name = "category_id")
-	private Integer categoryId;
+	@Column(name = "category_id", length = 32)
+	private String categoryId;
 
 	/**创建时间*/
 	@Column(name = "create_time")

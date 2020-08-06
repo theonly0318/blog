@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface PostRepository extends JpaRepository<Post, Integer>{}
+public interface PostRepository extends JpaRepository<Post, String>{}

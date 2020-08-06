@@ -29,9 +29,9 @@ public interface LinkApi {
      * @return
      */
     @ApiOperation(value = "友情链接信息", notes = "根据id友情链接信息")
-    @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "Integer",
-            dataTypeClass = java.lang.Integer.class, paramType = "path")
-    Link findById(Integer id);
+    @ApiImplicitParam(name = "id", value = "链接id", required = true, dataType = "String",
+            dataTypeClass = java.lang.String.class, paramType = "path")
+    Link findById(String id);
 
     /**
      * 分页获取所有友情链接
@@ -73,7 +73,7 @@ public interface LinkApi {
      * @param id
      */
     @ApiOperation(value = "删除链接", notes = "根据id删除友情链接")
-    @ApiImplicitParam(name = "id", value = "链接id", required = true, dataType = "Integer", dataTypeClass =
-            Integer.class, paramType = "path")
-    void delete(Integer id);
+    @ApiImplicitParam(name = "id", value = "链接id", required = true, dataType = "String", dataTypeClass =
+            String.class, paramType = "path")
+    void delete(String id);
 }

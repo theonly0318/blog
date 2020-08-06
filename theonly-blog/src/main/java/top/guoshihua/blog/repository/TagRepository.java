@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author guoshihua
  */
-public interface TagRepository extends JpaRepository<Tag, Integer>{}
+public interface TagRepository extends JpaRepository<Tag, String>{}

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -14,13 +15,15 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tb_attachment")
-@JsonIgnoreProperties(value={})
+@JsonIgnoreProperties(ignoreUnknown = true)
+//@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Attachment implements Serializable {
 
 	private static final long serialVersionUID =  8125302837527780183L;
 	@Id
-	@GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(generator = "JDBC")
+	@Column(length = 32)
+	private String id;
 
 	/**文件key；同path*/
 	@Column(name = "file_key")

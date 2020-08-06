@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author guoshihua
  */
-public interface LinkRepository extends JpaRepository<Link, Integer> {
+public interface LinkRepository extends JpaRepository<Link, String> {
 
+    Link findFirstByName(String name);
 }
