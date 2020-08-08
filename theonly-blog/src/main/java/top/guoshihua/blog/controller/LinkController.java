@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.guoshihua.blog.api.LinkApi;
+import top.guoshihua.blog.common.response.PageResult;
+import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.entity.Link;
 import top.guoshihua.blog.service.LinkService;
 
@@ -35,7 +37,7 @@ public class LinkController implements LinkApi {
 
 	@Override
 	@GetMapping("/page")
-	public Page<Link> findByPage(
+	public PageResult<Link> findByPage(
 			@RequestParam(name = "page", defaultValue = "1") Integer page,
 			@RequestParam(name = "rows", defaultValue = "10") Integer rows,
 			@RequestParam(name = "sortBy", required = false) String sortBy,
@@ -45,19 +47,19 @@ public class LinkController implements LinkApi {
 
 	@Override
 	@PostMapping("/save")
-	public void save(Link link) {
-		linkService.save(link);
+	public ResponseResult save(Link link) {
+		return linkService.save(link);
 	}
 
 	@Override
 	@PutMapping("/update")
-	public void update(Link link) {
-		linkService.update(link);
+	public ResponseResult update(Link link) {
+		return linkService.update(link);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") String id) {
-		linkService.deleteById(id);
+	public ResponseResult delete(@PathVariable("id") String id) {
+		return linkService.deleteById(id);
 	}
 }

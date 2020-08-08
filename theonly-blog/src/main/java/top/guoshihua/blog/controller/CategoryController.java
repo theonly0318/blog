@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.guoshihua.blog.api.CategoryApi;
+import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.entity.Category;
 import top.guoshihua.blog.service.CategoryService;
 
@@ -58,5 +59,13 @@ public class CategoryController implements CategoryApi {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") String id) {
 		categoryService.delete(id);
+	}
+
+	@Override
+	@PostMapping("/addToMenu/{id}")
+	public ResponseResult addCategoryToMenu(@PathVariable("id") String categoryId) {
+
+		return categoryService.addCategoryToMenu(categoryId);
+
 	}
 }

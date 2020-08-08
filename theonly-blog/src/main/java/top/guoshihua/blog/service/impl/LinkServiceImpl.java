@@ -1,10 +1,17 @@
 package top.guoshihua.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
+import top.guoshihua.blog.common.response.PageResult;
+import top.guoshihua.blog.common.response.enums.CommonCode;
+import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.dao.LinkMapper;
 import top.guoshihua.blog.entity.Link;
+import top.guoshihua.blog.exception.ExceptionCast;
 import top.guoshihua.blog.service.LinkService;
 import org.springframework.stereotype.Service;
 import top.guoshihua.blog.repository.LinkRepository;
@@ -12,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import top.guoshihua.blog.util.UuidUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author guoshihua
@@ -28,53 +34,82 @@ public class LinkServiceImpl implements LinkService {
 
 	@Override
 	public List<Link> findAll() {
-		return linkRepository.findAll();
+		List<Link> linkList = linkMapper.selectAll();
+		return linkList;
 	}
 
 	@Override
 	public Link findById(String id) {
-		Optional<Link> optionalLink = linkRepository.findById(id);
-		return optionalLink.get();
+		Link link = linkMapper.selectByPrimaryKey(id);
+		return link;
 	}
 
 	@Override
-	public Page<Link> findByPage(Integer page, Integer rows, String sortBy, Boolean desc) {
-		Pageable pageable = null;
+	public PageResult<Link> findByPage(Integer page, Integer rows, String sortBy, Boolean desc) {
+
+		tk.mybatis.mapper.entity.Example example = new Example(Link.class);
+		Example.Criteria criteria = example.createCriteria();
 		if (StringUtils.isNotBlank(sortBy)) {
 			sortBy = "createTime";
 		}
 		if (desc == null) {
 			desc = true;
 		}
-		page = page == null || page < 0 ? 0: page-1;
-		if (desc) {
-			pageable = PageRequest.of(page, rows,Sort.by(sortBy).descending());
-		} else {
-			pageable = PageRequest.of(page, rows,Sort.by(sortBy).ascending());
-		}
-		Page<Link> linkPage = linkRepository.findAll(pageable);
-		return linkPage;
+		PageHelper.startPage(page, rows);
+		example.setOrderByClause(sortBy + "  " + (desc ? "desc" : "asc"));
+		List<Link> linkList = linkMapper.selectByExample(example);
+		PageInfo<Link> pageInfo = new PageInfo<>(linkList);
+		return new PageResult<Link>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
 	}
 
 	@Override
-	public Link save(Link link) {
+	public ResponseResult save(Link link) {
+		if (link == null) {
+			// 抛出异常非法请求
+			ExceptionCast.cast(CommonCode.LINK_INVALID_PARAMETER);
+		}
 		Link c = linkRepository.findFirstByName(link.getName());
 		if (c != null) {
-			return null;
+			// 抛出异常，分类已存在
+			ExceptionCast.cast(CommonCode.LINK_ADD_EXISTSNAME);
 		}
 		String id = UuidUtil.getUUIDStr();
 		link.setId(id);
 		linkMapper.insertSelective(link);
-		return linkRepository.findById(id).get();
+		Link link1 = linkRepository.findById(id).get();
+		ResponseResult responseResult = new ResponseResult(CommonCode.SUCCESS);
+		return responseResult;
 	}
 
 	@Override
-	public Link update(Link link) {
-		return linkRepository.save(link);
+	public ResponseResult update(Link link) {
+		if (link == null) {
+			// 抛出异常非法请求
+			ExceptionCast.cast(CommonCode.LINK_INVALID_PARAMETER);
+		}
+		Link link1 = linkMapper.selectByPrimaryKey(link.getId());
+		if (link1 == null) {
+			// 抛出异常，分类不存在
+			ExceptionCast.cast(CommonCode.LINK_UPDATE_NOTEXISTS);
+		}
+		linkMapper.updateByPrimaryKeySelective(link);
+		ResponseResult responseResult = new ResponseResult(CommonCode.SUCCESS);
+		return responseResult;
 	}
 
 	@Override
-	public void deleteById(String id) {
+	public ResponseResult deleteById(String id) {
+		if (StringUtils.isBlank(id)) {
+			// 抛出异常非法请求
+			ExceptionCast.cast(CommonCode.LINK_INVALID_PARAMETER);
+		}
+		Link link = linkMapper.selectByPrimaryKey(id);
+		if (link == null) {
+			// 抛出异常，分类不存在
+			ExceptionCast.cast(CommonCode.LINK_UPDATE_NOTEXISTS);
+		}
 		linkRepository.deleteById(id);
+		ResponseResult responseResult = new ResponseResult(CommonCode.SUCCESS);
+		return responseResult;
 	}
 }

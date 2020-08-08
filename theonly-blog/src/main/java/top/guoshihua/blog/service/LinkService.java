@@ -3,6 +3,8 @@ package top.guoshihua.blog.service;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import top.guoshihua.blog.common.response.PageResult;
+import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.entity.Link;
 
 import java.util.List;
@@ -35,21 +37,21 @@ public interface LinkService {
      * @param desc 是否降序；true：降序排序、false：升序排序
      * @return
      */
-    Page<Link> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
+    PageResult<Link> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
 
     /**
      * 新增
      * @param link
      * @return
      */
-    Link save(Link link);
+    ResponseResult save(Link link);
 
     /**
      * 修改
      * @param link
      * @return
      */
-    Link update(Link link);
+    ResponseResult update(Link link);
 
-    void deleteById(String id);
+    ResponseResult  deleteById(String id);
 }

@@ -1,4 +1,5 @@
 package top.guoshihua.blog.service.impl;
+import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -8,12 +9,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+import top.guoshihua.blog.common.response.ResponseResult;
+import top.guoshihua.blog.common.response.enums.CommonCode;
 import top.guoshihua.blog.dao.CategoryMapper;
 import top.guoshihua.blog.entity.Category;
+import top.guoshihua.blog.entity.Menu;
+import top.guoshihua.blog.exception.ExceptionCast;
 import top.guoshihua.blog.service.CategoryService;
 import org.springframework.stereotype.Service;
 import top.guoshihua.blog.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import top.guoshihua.blog.service.MenuService;
+import top.guoshihua.blog.util.UUIDGenerator;
 import top.guoshihua.blog.util.UuidUtil;
 
 import java.util.List;
@@ -32,6 +39,8 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private CategoryMapper categoryMapper;
+	@Autowired
+	private MenuService menuService;
 
 	@Override
 	public List<Category> findAll() {
@@ -84,5 +93,28 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void delete(String id) {
 		categoryRepository.deleteById(id);
+	}
+
+	@Override
+	public ResponseResult addCategoryToMenu(String categoryId) {
+		Category category = categoryMapper.selectByPrimaryKey(categoryId);
+		if (category == null) {
+			ExceptionCast.cast(CommonCode.CATEGORY_UPDATE_NOTEXISTS);
+		}
+		Menu menu = new Menu();
+		String id = UuidUtil.getUUIDStr();
+		menu.setId(id);
+		menu.setIcon("");
+		menu.setName(category.getName());
+		menu.setParentId(0);
+		menu.setPriority(0);
+		menu.setTarget("");
+		menu.setTeam("");
+		menu.setUrl("category/"+category.getSlugName());
+		menu.setDeleted(false);
+
+		menuService.save(menu);
+
+		return ResponseResult.SUCCESS();
 	}
 }

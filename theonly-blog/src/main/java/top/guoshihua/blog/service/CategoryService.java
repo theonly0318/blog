@@ -2,6 +2,7 @@ package top.guoshihua.blog.service;
 
 
 import org.springframework.data.domain.Page;
+import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.entity.Category;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface CategoryService {
     Category update(String id, Category category);
 
     void delete(String id);
+
+    ResponseResult addCategoryToMenu(String categoryId);
 }

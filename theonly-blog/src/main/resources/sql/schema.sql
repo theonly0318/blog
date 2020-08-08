@@ -61,6 +61,12 @@ CREATE TABLE IF NOT EXISTS `tb_post` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章表' ROW_FORMAT=DYNAMIC;$$$
 
+CREATE TABLE IF NOT EXISTS `tb_post_status` (
+  `id` int(11) NOT NULL,
+  `name` varchar(10) COLLATE utf8mb4_bin NOT NULL COMMENT '状态名称',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章状态信息表' ROW_FORMAT=DYNAMIC;$$$
+
 CREATE TABLE IF NOT EXISTS `tb_post_category` (
   `id` varchar(32) COLLATE utf8mb4_bin NOT NULL,
   `post_id` varchar(32) COLLATE utf8mb4_bin NOT NULL COMMENT '文章id',

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
+import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.entity.Category;
 
 import java.util.List;
@@ -78,4 +79,12 @@ public interface CategoryApi {
     @ApiImplicitParam(name = "id", value = "分类id", required = true, dataType = "String", dataTypeClass =
             String.class, paramType = "path")
     void delete(String id);
+
+    /**
+     * 将分类添加到菜单
+     * @param categoryId
+     */
+    @ApiOperation(value = "添加到菜单", notes = "将分类添加到菜单")
+    @ApiImplicitParam(name = "categoryId", value = "分类id", required = true, dataType = "String", paramType = "path")
+    ResponseResult addCategoryToMenu(String categoryId);
 }
