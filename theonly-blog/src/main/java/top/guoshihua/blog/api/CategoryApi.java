@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
+import top.guoshihua.blog.bo.CategoryBo;
+import top.guoshihua.blog.common.response.PageResult;
 import top.guoshihua.blog.common.response.ResponseResult;
 import top.guoshihua.blog.entity.Category;
 
@@ -22,16 +24,6 @@ public interface CategoryApi {
      */
     @ApiOperation(value = "获取所有分类", notes = "获取所有分类")
     List<Category> list();
-
-    /**
-     * 根据主键id获取分类信息
-     * @param id 分类主键id
-     * @return
-     */
-    @ApiOperation(value = "分类信息", notes = "根据id获取分类信息")
-    @ApiImplicitParam(name = "id", value = "分类id", required = true,
-            dataType = "String", paramType = "path")
-    Category findById(String id);
 
     /**
      * 分页获取所有分类
@@ -55,36 +47,27 @@ public interface CategoryApi {
     Page<Category> findByPage(Integer page, Integer rows, String sortBy, Boolean desc);
 
     /**
-     * 添加分类
-     * @param category
+     * 根据分类别名获取博客文章
+     * @param page
+     * @param rows
+     * @param sortBy
+     * @param desc
+     * @param slugName
+     * @return
      */
-    @ApiOperation(value = "新增分类", notes = "新增分类")
-    void save(Category category);
-
-    /**
-     * 更新分类
-     * @param id
-     * @param category
-     */
-    @ApiOperation(value = "修改分类", notes = "修改分类")
-    @ApiImplicitParam(name = "id", value = "分类id", required = true,
-            dataType = "String", dataTypeClass = String.class, paramType = "path")
-    void update(String id, Category category);
-
-    /**
-     * 删除
-     * @param id
-     */
-    @ApiOperation(value = "删除分类", notes = "根据id删除分类")
-    @ApiImplicitParam(name = "id", value = "分类id", required = true, dataType = "String", dataTypeClass =
-            String.class, paramType = "path")
-    void delete(String id);
-
-    /**
-     * 将分类添加到菜单
-     * @param categoryId
-     */
-    @ApiOperation(value = "添加到菜单", notes = "将分类添加到菜单")
-    @ApiImplicitParam(name = "categoryId", value = "分类id", required = true, dataType = "String", paramType = "path")
-    ResponseResult addCategoryToMenu(String categoryId);
+    @ApiOperation(value = "根据分类别名获取博客文章", notes = "根据分类别名获取博客文章")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "页码", defaultValue = "1",
+                    dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "rows", value = "每页显示条数", defaultValue = "10",
+                    dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "sortBy", value = "排序字段", defaultValue = "create_time",
+                    dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "desc", value = "排序方式", defaultValue = "true",
+                    dataType = "Boolean", dataTypeClass = Boolean.class),
+            @ApiImplicitParam(name = "slugName", value = "分类别名", required = true,
+                    dataType = "String", dataTypeClass = String.class)
+    })
+    PageResult<CategoryBo> findPostByCategorySlugName(Integer page, Integer rows, String sortBy, Boolean desc,
+                                                String slugName);
 }

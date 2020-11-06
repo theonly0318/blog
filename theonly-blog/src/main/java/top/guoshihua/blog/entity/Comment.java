@@ -89,4 +89,7 @@ public class Comment implements Serializable {
 	/**是否已删除（回收站）*/
 	private Boolean deleted;
 
+	@Transient
+	private Post post;
+
 }

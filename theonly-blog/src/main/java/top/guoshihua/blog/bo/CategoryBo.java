@@ -3,6 +3,9 @@ package top.guoshihua.blog.bo;
 import lombok.Data;
 import lombok.ToString;
 import top.guoshihua.blog.entity.Category;
+import top.guoshihua.blog.entity.Post;
+
+import java.util.List;
 
 /**
  * @ClassName CategoryBo
@@ -15,5 +18,6 @@ import top.guoshihua.blog.entity.Category;
 @Data
 @ToString
 public class CategoryBo extends Category {
+    private List<Post> postList;
     private Long postCount;
 }

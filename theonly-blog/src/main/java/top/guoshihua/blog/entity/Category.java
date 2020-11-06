@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -66,4 +68,6 @@ public class Category implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private Boolean deleted;
 
+	@Transient
+	private List<Post> postList;
 }

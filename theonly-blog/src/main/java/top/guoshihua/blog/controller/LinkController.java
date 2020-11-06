@@ -30,12 +30,6 @@ public class LinkController implements LinkApi {
 	}
 
 	@Override
-	@GetMapping("/{id}")
-	public Link findById(@PathVariable("id") String id) {
-		return linkService.findById(id);
-	}
-
-	@Override
 	@GetMapping("/page")
 	public PageResult<Link> findByPage(
 			@RequestParam(name = "page", defaultValue = "1") Integer page,
@@ -45,21 +39,4 @@ public class LinkController implements LinkApi {
 		return linkService.findByPage(page, rows, sortBy, desc);
 	}
 
-	@Override
-	@PostMapping("/save")
-	public ResponseResult save(Link link) {
-		return linkService.save(link);
-	}
-
-	@Override
-	@PutMapping("/update")
-	public ResponseResult update(Link link) {
-		return linkService.update(link);
-	}
-
-	@Override
-	@DeleteMapping("/{id}")
-	public ResponseResult delete(@PathVariable("id") String id) {
-		return linkService.deleteById(id);
-	}
 }

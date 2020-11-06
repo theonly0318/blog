@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -52,5 +54,8 @@ public class Tag implements Serializable {
 	/**是否已删除（回收站）*/
 	@ApiModelProperty(hidden = true)
 	private Boolean deleted;
+
+	@Transient
+	private List<Post> postList;
 
 }
